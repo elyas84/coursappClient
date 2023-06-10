@@ -147,7 +147,7 @@ export default function WelcomePage() {
   const getCurriculumsApi = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/curriculums");
+      const res = await axios.get("https://mern-course-app-client.onrender.com/api/curriculums");
       setCurriculums(res.data);
       setLoading(false);
     } catch (error) {
@@ -157,7 +157,7 @@ export default function WelcomePage() {
   const getTestimonialsApi = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/testimonials");
+      const res = await axios.get("https://mern-course-app-client.onrender.com/api/testimonials");
       setTestimonials(res.data);
       setLoading(false);
     } catch (error) {

@@ -120,7 +120,7 @@ export default function SearchPage() {
     try {
       setLoading(true);
       const res = await axios
-        .get("http://localhost:5000/api/curriculums?search=" + search)
+        .get("https://mern-course-app-client.onrender.com/api/curriculums?search=" + search)
         .catch((err) => {
           setError(err.response && err.response.data.message);
         });
