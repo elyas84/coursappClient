@@ -90,7 +90,7 @@ export default function ProgramDetailsPage() {
     try {
       setLoading(true);
       const res = await axios
-        .get("https://mern-course-app-client.onrender.com/api/curriculums/" + curriculumId)
+        .get("https://fake-school-100-backend.onrender.com/api/curriculums/" + curriculumId)
         .catch((err) => {
           setError(err.response && err.response.data.message);
         });
