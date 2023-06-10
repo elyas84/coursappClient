@@ -15,6 +15,12 @@ const ContainContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  @media (max-width: 1200px) {
+   flex-direction: column;
+  }
+  @media (max-width: 750px) {
+   flex-direction: column;
+  }
 `;
 const ImageContainerWrapper = styled.div`
   flex: 1;
@@ -22,6 +28,14 @@ const ImageContainerWrapper = styled.div`
 const CourseImageContainer = styled.div`
   width: 400px;
   height: 380px;
+  @media (max-width: 1200px) {
+    width: 350px;
+  height: 280px;
+  }
+  @media (max-width: 750px) {
+    width: 300px;
+  height: 280px;
+  }
 `;
 const CourseImg = styled.img`
   object-fit: contain;
@@ -30,6 +44,12 @@ const CourseImg = styled.img`
 `;
 const DescContainer = styled.div`
   flex: 1;
+  @media (max-width: 1200px) {
+    margin-top: 3rem;
+  }
+  @media (max-width: 750px) {
+ margin-top: 3rem;
+}
 `;
 
 const Title = styled.h1`
@@ -39,11 +59,20 @@ const Title = styled.h1`
   font-weight: bold;
   font-size: 4rem;
   text-transform: uppercase;
+  @media (max-width: 1200px) {
+   font-size: 20px;
+
+  }
+  @media (max-width: 750px) {
+   font-size: 20px;
+
+  }
 `;
 const Desc = styled.p`
   font-family: "Oswald", sans-serif;
   font-family: "Rajdhani", sans-serif;
   margin-bottom: 3rem;
+
 `;
 const DescDuration = styled.h3`
   font-family: "Oswald", sans-serif;
