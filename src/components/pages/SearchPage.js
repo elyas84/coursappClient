@@ -120,7 +120,7 @@ export default function SearchPage() {
     try {
       setLoading(true);
       const res = await axios
-        .get("https://mern-course-app-client.onrender.com/api/curriculums?search=" + search)
+        .get("https://fake-school-100-backend.onrender.com/api/curriculums?search=" + search)
         .catch((err) => {
           setError(err.response && err.response.data.message);
         });
