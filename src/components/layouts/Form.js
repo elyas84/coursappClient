@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import axios from "axios";
+import ErrorMessage from "./ErrorMessage";
+import Spinner from "./Spinner";
 const Container = styled.div`
   width: 100%;
   //height: calc(70vh - 80px);
@@ -97,22 +100,47 @@ const Small = styled.small`
 export default function Form() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [cilcked, setClicked] = useState(false);
   const gotClicked = () => {
     setClicked(!cilcked);
   };
-
-  const LoginHandler = (e) => {
-    e.preventDfault();
-    // login
-    setEmail("");
+  const loginReq = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      setLoading(true);
+      await axios
+        .post("http://localhost:5000/api/users/login", { email, pass, config })
+        .catch((err) => {
+          setError(err.response && err.response.data.message);
+        });
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  const submitHandler = (e) => {
+    e.preventDefault();
+    loginReq();
     setPass("");
   };
   return (
     <Container>
       <FormContainer>
-        <InputForm>
-          <FormTitle>Login</FormTitle>
+        <InputForm onSubmit={submitHandler}>
+              {error ? (
+            <ErrorMessage>{error}</ErrorMessage>
+          ) : loading ? (
+            <Spinner />
+          ) : (
+            <FormTitle>Login</FormTitle>
+          )}
           <InputContainer>
             <FormInput
               placeholder="email"
@@ -150,7 +178,7 @@ export default function Form() {
           <ButtonContainer>
             <Button>Login</Button>
           </ButtonContainer>
-          <Small>no accoun? please contact us</Small>
+       <Small>No accoun? please contact us</Small>
         </InputForm>
       </FormContainer>
     </Container>
