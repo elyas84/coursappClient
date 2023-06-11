@@ -115,7 +115,7 @@ export default function Form() {
       };
       setLoading(true);
       await axios
-        .post("http://localhost:5000/api/users/login", { email, pass, config })
+        .post("https://fake-school-100-backend.onrender.com/api/users/login", { email, pass, config })
         .catch((err) => {
           setError(err.response && err.response.data.message);
         });
