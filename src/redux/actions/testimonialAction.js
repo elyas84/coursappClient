@@ -14,7 +14,7 @@ import {
       dispatch({
         type: TESTIMONIAL_LIST_REQUEST,
       });
-      const response = await axios.get("/api/testimonials");
+      const response = await axios.get("https://fake-school-100-backend.onrender.com/api/testimonials");
       dispatch({
         type: TESTIMONIAL_LIST_SUCCESS,
         payload: response.data,
@@ -44,7 +44,7 @@ import {
           Authorization: "Bearer " + userInfo.token,
         },
       };
-      const response = await axios.post("/api/testimonials/", testimonial, config);
+      const response = await axios.post("https://fake-school-100-backend.onrender.com/api/testimonials/", testimonial, config);
       dispatch({
         type: TESTIMONIAL_CREATE_SUCCESS,
         payload: response.data,

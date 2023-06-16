@@ -36,7 +36,7 @@ import {
       };
 
       const res = await axios.post(
-        "/api/users/new-user",
+        "https://fake-school-100-backend.onrender.com/api/users/new-user",
         {firstname,lastname, phone , street, postCode,flatNumber,email, password},
         config
       );
@@ -70,7 +70,7 @@ export const loginToApp = (email, password) => async (dispatch) => {
       },
     };
     const response = await axios.post(
-      "/api/users/login",
+      "https://fake-school-100-backend.onrender.com/api/users/login",
       { email, password },
       config
     );
@@ -113,7 +113,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         Authorization: "Bearer " + userInfo.token,
       },
     };
-    const response = await axios.get("/api/users/" + id, config);
+    const response = await axios.get("https://fake-school-100-backend.onrender.com/api/users/" + id, config);
     dispatch({
       type: USER_DETAILS_SUCCESS,
       payload: response.data,
@@ -145,7 +145,7 @@ export const profileUpdate = (user) => async (dispatch, getState) => {
       },
     };
 
-    const response = await axios.put("/api/users/profile", user, config);
+    const response = await axios.put("https://fake-school-100-backend.onrender.com/api/users/profile", user, config);
     dispatch({
       type: USER_PROFILE_UPDATE_SUCCESS,
       payload: response.data,

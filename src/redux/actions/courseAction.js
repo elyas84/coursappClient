@@ -29,7 +29,7 @@ import {
       dispatch({
         type: COURSE_LIST_REQUEST,
       });
-      const response = await axios.get("/api/curriculums");
+      const response = await axios.get("https://fake-school-100-backend.onrender.com/api/curriculums");
       dispatch({
         type: COURSE_LIST_SUCCESS,
         payload: response.data,
@@ -59,7 +59,7 @@ import {
           Authorization: "Bearer " + userInfo.token,
         },
       };
-      const response = await axios.post("/api/curriculums", course, config);
+      const response = await axios.post("https://fake-school-100-backend.onrender.com/api/curriculums", course, config);
       dispatch({
         type: COURSE_CREATE_SUCCESS,
         payload: response.data,
@@ -94,7 +94,7 @@ import {
           Authorization: "Bearer " + userInfo.token,
         },
       };
-      const response = await axios.put("/api/curriculums/" + course, config);
+      const response = await axios.put("https://fake-school-100-backend.onrender.com/api/curriculums/" + course, config);
   
       dispatch({
         type: COURSE_VIEW_SUCCESS,
@@ -126,7 +126,7 @@ import {
           Authorization: "Bearer " + userInfo.token,
         },
       };
-      await axios.delete("/api/curriculums/" + id, config);
+      await axios.delete("https://fake-school-100-backend.onrender.com/api/curriculums/" + id, config);
   
       dispatch({
         type: COURSE_DELETE_SUCCESS,
@@ -158,7 +158,7 @@ import {
           Authorization: "Bearer " + userInfo.token,
         },
       };
-      const response = await axios.put("/api/curriclums/" + course, config);
+      const response = await axios.put("https://fake-school-100-backend.onrender.com/api/curriclums/" + course, config);
   
       dispatch({
         type: COURSE_EDIT_SUCCESS,
@@ -181,7 +181,7 @@ import {
       dispatch({
         type: COURSE_DETAILS_REQUEST,
       });
-      const response = await axios.get("/api/curriclums/" + course);
+      const response = await axios.get("https://fake-school-100-backend.onrender.com/api/curriclums/" + course);
   
       dispatch({
         type: COURSE_DEATAILS_SUCCESS,
