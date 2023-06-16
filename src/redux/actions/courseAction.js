@@ -24,6 +24,7 @@ import {
   
   import axios from "axios";
   export const getCourseApi = () => async (dispatch) => {
+      //test
     try {
       dispatch({
         type: COURSE_LIST_REQUEST,
