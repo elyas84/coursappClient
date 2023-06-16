@@ -5,7 +5,7 @@ const Container = styled.div`
   height: 100%;
 `;
 const ErrorContainer = styled.div`
-  width: 300px;
+  width: 100%;
   background-color: #244c91;
   font-family: "Oswald", sans-serif;
   font-family: "Rajdhani", sans-serif;
@@ -14,6 +14,7 @@ const ErrorContainer = styled.div`
   font-weight: bold;
   letter-spacing: 1px;
   border-radius: 3px;
+  text-align: center;
 `;
 export default function AlertMessage({ children }) {
   return (
