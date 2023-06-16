@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { BiSquareRounded, BiSearch } from "react-icons/bi";
-=======
-mport { BiSquareRounded, BiSearch } from "react-icons/bi";
->>>>>>> 400e81e092ef313b01c02e8ce92a5991d5231a68
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { FiUserPlus } from "react-icons/fi";
 import { AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
