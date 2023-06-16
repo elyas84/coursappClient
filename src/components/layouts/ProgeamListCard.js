@@ -118,7 +118,7 @@ export default function ProgeamListCard({ item }) {
         </Overlay>
         <CardHeader>{item.title}</CardHeader>
         <CardBody>
-          <CardImg src={item.image} alt="image" />
+          <CardImg src={item.image} alt="image" loading="lazy"/>
         </CardBody>
         <CardFooter>
           <Price>{item.price} €</Price>

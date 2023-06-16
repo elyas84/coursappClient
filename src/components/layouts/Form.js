@@ -100,12 +100,13 @@ const Small = styled.small`
 export default function Form() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-   const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [cilcked, setClicked] = useState(false);
   const gotClicked = () => {
     setClicked(!cilcked);
   };
+
   const loginReq = async () => {
     try {
       const config = {
@@ -115,7 +116,7 @@ export default function Form() {
       };
       setLoading(true);
       await axios
-        .post("https://fake-school-100-backend.onrender.com/api/users/login", { email, pass, config })
+        .post("http://localhost:5000/api/users/login", { email, pass, config })
         .catch((err) => {
           setError(err.response && err.response.data.message);
         });
@@ -124,7 +125,7 @@ export default function Form() {
       console.log(error);
     }
   };
-  
+
   const submitHandler = (e) => {
     e.preventDefault();
     loginReq();
@@ -134,13 +135,14 @@ export default function Form() {
     <Container>
       <FormContainer>
         <InputForm onSubmit={submitHandler}>
-              {error ? (
+          {error ? (
             <ErrorMessage>{error}</ErrorMessage>
           ) : loading ? (
             <Spinner />
           ) : (
             <FormTitle>Login</FormTitle>
           )}
+
           <InputContainer>
             <FormInput
               placeholder="email"
@@ -178,7 +180,7 @@ export default function Form() {
           <ButtonContainer>
             <Button>Login</Button>
           </ButtonContainer>
-       <Small>No accoun? please contact us</Small>
+          <Small>No accoun? please contact us</Small>
         </InputForm>
       </FormContainer>
     </Container>

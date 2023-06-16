@@ -1,8 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { navitems } from "../../utilData";
+import {
+  navitemsForAdmin,
+  navitemsForUser,
+  navitemsPublic,
+} from "../../utilData";
 import { Link } from "react-router-dom";
 import { BsCodeSlash } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/actions/userAction";
+
 // CSS will be placed here.
 const Container = styled.div`
   width: 100%;
@@ -46,11 +53,11 @@ const LI = styled.li`
     color: #436db0;
   }
   a {
-    text-transform: uppercase;
     color: #fff;
     font-weight: bolder;
     font-family: "Oswald", sans-serif;
     letter-spacing: 1.5px;
+    font-size: 1.5rem;
   }
   a:hover {
     color: #436db0;
@@ -71,19 +78,71 @@ const LI = styled.li`
 `;
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <Container>
       <Navbar>
         <LOGO>
           <Link to="/">{<BsCodeSlash></BsCodeSlash>}</Link>
         </LOGO>
-
         <UL>
-          {navitems.map((item, i) => (
-            <LI key={i}>
-              <Link to={item.path}>{item.title}</Link>
-            </LI>
-          ))}
+          {userInfo && userInfo.isAdmin
+            ? navitemsForAdmin.map((navItem, i) =>
+                navItem.title === "logout" ? (
+                  <LI
+                    key={i}
+                  
+                    onClick={() => {
+                      logoutHandler();
+                    }}
+                  >
+                    <Link title={navItem.title} to={navItem.path}>
+                      {navItem.icon}
+                    </Link>
+                  </LI>
+                ) : (
+                  <LI key={i}>
+                    <Link title={navItem.title} to={navItem.path}>
+                      {navItem.icon}
+                    </Link>
+                  </LI>
+                )
+              )
+            : userInfo && !userInfo.isAdmin
+            ? navitemsForUser.map((navItem, i) =>
+                navItem.title === "logout" ? (
+                  <LI
+                    key={i}
+                    onClick={() => {
+                      logoutHandler();
+                    }}
+                  >
+                    <Link title={navItem.title} to={navItem.path}>
+                      {navItem.icon}
+                    </Link>
+                  </LI>
+                ) : (
+                  <LI key={i}>
+                    <Link title={navItem.title} to={navItem.path}>
+                      {navItem.icon}
+                    </Link>
+                  </LI>
+                )
+              )
+            : navitemsPublic.map((navItem, i) => (
+                <LI key={i}>
+                  <Link title={navItem.title} to={navItem.path}>
+                    {navItem.icon}
+                  </Link>
+                </LI>
+              ))}
         </UL>
       </Navbar>
     </Container>

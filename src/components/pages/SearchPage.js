@@ -5,7 +5,7 @@ import axios from "axios";
 import Spinner from "../layouts/Spinner";
 import SearchResultCard from "../layouts/SearchResultCard";
 import ErrorMessage from "../layouts/ErrorMessage";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -120,7 +120,7 @@ export default function SearchPage() {
     try {
       setLoading(true);
       const res = await axios
-        .get("https://fake-school-100-backend.onrender.com/api/curriculums?search=" + search)
+        .get("http://localhost:5000/api/curriculums?search=" + search)
         .catch((err) => {
           setError(err.response && err.response.data.message);
         });

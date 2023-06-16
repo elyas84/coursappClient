@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { welcomePageBg } from "../../utilData";
 import ProgeamListCard from "../layouts/ProgeamListCard";
-
-import axios from "axios";
+import ErrorMessage from "../layouts/ErrorMessage";
 import Spinner from "../layouts/Spinner";
 import TestimonialCard from "../layouts/TestimonialCard";
+import { useSelector, useDispatch } from "react-redux";
+import { getCourseApi } from "../../redux/actions/courseAction";
+import { getTestimonilasApi } from "../../redux/actions/testimonialAction";
 
 const Container = styled.div`
   width: 100%;
@@ -16,10 +18,10 @@ const Banner = styled.div`
   height: 800px;
   position: relative;
   @media (max-width: 1200px) {
-    height: 700px;;
+    height: 700px;
   }
   @media (max-width: 990px) {
-    height: 500px;;
+    height: 500px;
   }
   @media (max-width: 769px) {
     height: 450px;
@@ -57,10 +59,10 @@ const OverlayTitle = styled.h1`
     font-size: 2rem;
   }
   @media (max-width: 769px) {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
   }
   @media (max-width: 426px) {
-  font-size: 1rem;
+    font-size: 1rem;
   }
 `;
 const IMG = styled.img`
@@ -92,10 +94,10 @@ const SectionTitle = styled.h1`
     font-size: 2rem;
   }
   @media (max-width: 769px) {
-  font-size: 25px;
+    font-size: 25px;
   }
   @media (max-width: 426px) {
-  font-size: 20px;
+    font-size: 20px;
   }
 `;
 const SectionParagraph = styled.p`
@@ -108,10 +110,10 @@ const SectionParagraph = styled.p`
     font-size: 20px;
   }
   @media (max-width: 769px) {
-  font-size: 16px;
+    font-size: 16px;
   }
   @media (max-width: 426px) {
-  font-size: 1rem;
+    font-size: 1rem;
   }
 `;
 const Row = styled.div`
@@ -124,7 +126,6 @@ const Row = styled.div`
   @media (max-width: 712px) {
     grid-template-columns: repeat(1, 1fr);
   }
- 
 `;
 const SectionTestmonial = styled.div`
   width: 100%;
@@ -140,35 +141,20 @@ const SectionTestimonialContainer = styled.div`
   padding: 4rem 0;
 `;
 export default function WelcomePage() {
-  const [curriculums, setCurriculums] = useState([]);
-  const [Testimonials, setTestimonials] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const getCurriculumsApi = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get("https://fake-school-100-backend.onrender.com/api/curriculums");
-      setCurriculums(res.data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const getTestimonialsApi = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get("https://fake-school-100-backend.onrender.com/api/testimonials");
-      setTestimonials(res.data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const dispatch = useDispatch();
+  const courseList = useSelector((state) => state.courseList);
+  const { loading, courses, error } = courseList;
+  const testimonialList = useSelector((state) => state.testimonialList);
+  const {
+    loading: testimonialLoading,
+    testimonials,
+    error: testimonialError,
+  } = testimonialList;
 
   useEffect(() => {
-    getCurriculumsApi();
-    getTestimonialsApi();
-  }, []);
+    dispatch(getCourseApi());
+    dispatch(getTestimonilasApi());
+  }, [dispatch]);
 
   return (
     <Container>
@@ -190,49 +176,51 @@ export default function WelcomePage() {
             essentially unchanged. It was popularised in the 1960s with the
             release of Letraset sheets containing Lorem Ipsum passages, and more
             recently with desktop publishing software like Aldus PageMaker
-            including versions of Lorem Ipsum
-            is simply dummy text of the printing and typesetting industry. Lorem
-            Ipsum has been the industry's standard dummy text ever since the
-            1500s, when an unknown printer took a galley of type and scrambled
-            it to make a type specimen book. It has survived not only five
-            centuries, but also the leap into electronic typesetting, remaining
-            essentially unchanged. It was popularised in the 1960s with the
-            release of Letraset sheets containing Lorem Ipsum passages, and more
-            recently with desktop publishing software like Aldus PageMaker
-            including versions of Lorem Ipsum
+            including versions of Lorem Ipsum is simply dummy text of the
+            printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s, when an unknown
+            printer took a galley of type and scrambled it to make a type
+            specimen book. It has survived not only five centuries, but also the
+            leap into electronic typesetting, remaining essentially unchanged.
+            It was popularised in the 1960s with the release of Letraset sheets
+            containing Lorem Ipsum passages, and more recently with desktop
+            publishing software like Aldus PageMaker including versions of Lorem
+            Ipsum
           </SectionParagraph>
         </SectionContainer>
       </Section>
       <Section>
         <SectionContainer>
-        <SectionTitle>our cources</SectionTitle>
-        <Row>
-          {loading ? (
-            <Spinner />
-          ) : curriculums && curriculums.length ? (
-            curriculums.map((item, id) => (
-              <ProgeamListCard item={item} key={id} />
-            ))
-          ) : null}
-        </Row>
+          <SectionTitle>our cources</SectionTitle>
+          <Row>
+            {loading ? (
+              <Spinner />
+            ) : error ? (
+              <ErrorMessage>{error}</ErrorMessage>
+            ) : courses && courses.length ? (
+              courses.map((item, id) => (
+                <ProgeamListCard item={item} key={id} />
+              ))
+            ) : null}
+          </Row>
         </SectionContainer>
-       
       </Section>
       <SectionTestmonial>
-            <SectionTestimonialContainer>
-        <SectionTitle>Testimonials</SectionTitle>
-        <Row>
-          {loading ? (
-            <Spinner />
-          ) : Testimonials && Testimonials.length ? (
-            Testimonials.map((item, id) => (
-              <TestimonialCard item={item} key={id} />
-            ))
-          ) : null}
-        </Row>
-      </SectionTestimonialContainer>
+        <SectionTestimonialContainer>
+          <SectionTitle>Testimonials</SectionTitle>
+          <Row>
+            {testimonialLoading ? (
+              <Spinner />
+            ) : testimonialError ? (
+              <ErrorMessage>{testimonialError}</ErrorMessage>
+            ) : testimonials && testimonials.length ? (
+              testimonials.map((item, id) => (
+                <TestimonialCard item={item} key={id} />
+              ))
+            ) : null}
+          </Row>
+        </SectionTestimonialContainer>
       </SectionTestmonial>
-  
     </Container>
   );
 }

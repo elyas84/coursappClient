@@ -119,7 +119,7 @@ export default function ProgramDetailsPage() {
     try {
       setLoading(true);
       const res = await axios
-        .get("https://fake-school-100-backend.onrender.com/api/curriculums/" + curriculumId)
+        .get("http://localhost:5000/api/curriculums/" + curriculumId)
         .catch((err) => {
           setError(err.response && err.response.data.message);
         });

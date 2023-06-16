@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./components/layouts/Header";
 import WelcomePage from "./components/pages/WelcomePage";
+import ProfilePage from './components/pages/ProfilePage'
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
 import ContactPage from "./components/pages/ContactPage";
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegisterPage />}></Route>
           <Route path="/contact" element={<ContactPage />}></Route>
+          <Route path="/profile" element={<ProfilePage />}></Route>
           <Route path="/search" element={<SearchPage />}></Route>
           <Route path="/course/:id" element={<ProgramDetailsPage />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
